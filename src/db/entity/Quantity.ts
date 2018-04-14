@@ -7,6 +7,8 @@ import { Ingredient } from './Ingredient';
 
 @Entity('quantities')
 export class Quantity {
+    
+
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -21,4 +23,10 @@ export class Quantity {
 
     @Column()
     unit: string;
+
+    add(other: Quantity): Quantity {
+        // Normalize unit
+        this.amount += other.amount;
+        return this;
+    }
 }
