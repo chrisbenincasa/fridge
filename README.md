@@ -22,7 +22,7 @@ npm i
 
 ```bash
 # Install postgres
-brew install postgres
+brew install postgresql
 
 # Start Postgrest with Docker
 docker-compose up
