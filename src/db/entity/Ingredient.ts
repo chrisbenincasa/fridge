@@ -1,5 +1,7 @@
 import 'reflect-metadata';
-import {Entity, Column, PrimaryGeneratedColumn, OneToMany} from 'typeorm';
+
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+
 import { Quantity } from './Quantity';
 
 @Entity('ingredients')

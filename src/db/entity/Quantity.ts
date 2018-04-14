@@ -1,7 +1,9 @@
 import 'reflect-metadata';
-import {Entity, OneToMany, ManyToOne, Column, PrimaryGeneratedColumn} from 'typeorm';
-import {Fridge} from './Fridge'
-import {Ingredient} from './Ingredient'
+
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+
+import { Fridge } from './Fridge';
+import { Ingredient } from './Ingredient';
 
 @Entity('quantities')
 export class Quantity {

@@ -1,8 +1,7 @@
 import * as Router from 'koa-router';
 import { Connection } from 'typeorm';
+
 import { Ingredient } from '../db/entity/Ingredient';
-import { Fridge } from '../db/entity/Fridge';
-import { Quantity } from '../db/entity/Quantity';
 import { Controller } from './Controller';
 
 export class IngredientsController extends Controller {
