@@ -1,6 +1,6 @@
 import * as Koa from 'koa';
 import * as Router from 'koa-router';
-import {Controllers, Controller} from './controllers/controller';
+import {Controller} from './controllers/controller';
 import {Middleware} from './middleware/middleware';
 import {Db} from './db/connection';
 import { Fridge } from './db/entity/Fridge';
