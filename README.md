@@ -8,8 +8,8 @@ NOTE: Setup steps tested with the following versions:
 * Typescript 2.8.1
 
 ```bash
-# Install the Typescript compiler, if you haven't already:
-npm i -g typescript
+# Install the Typescript compiler and nodemon (for hot server reload), if you haven't already:
+npm i -g typescript nodemon
 
 # Optionally, install `typeorm` globally for CLI utils:
 npm i -g typeorm
