@@ -1,5 +1,6 @@
 import 'reflect-metadata';
-import {Entity, Column, PrimaryGeneratedColumn} from 'typeorm';
+import {Entity, Column, PrimaryGeneratedColumn, OneToMany} from 'typeorm';
+import { Quantity } from './Quantity';
 
 @Entity('ingredients')
 export class Ingredient {
@@ -8,4 +9,7 @@ export class Ingredient {
 
     @Column()
     name: string;
+
+    @OneToMany(type => Quantity, q => q.ingredient)
+    quantities: Quantity[]
 }

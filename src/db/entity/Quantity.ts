@@ -1,0 +1,22 @@
+import 'reflect-metadata';
+import {Entity, OneToMany, ManyToOne, Column, PrimaryGeneratedColumn} from 'typeorm';
+import {Fridge} from './Fridge'
+import {Ingredient} from './Ingredient'
+
+@Entity('quantities')
+export class Quantity {
+    @PrimaryGeneratedColumn()
+    id: number;
+
+    @ManyToOne(type => Fridge, fridge => fridge.quantities)
+    fridge: Promise<Fridge>;
+
+    @ManyToOne(type => Ingredient, ingredient => ingredient.quantities, { eager: true })
+    ingredient: Ingredient;
+
+    @Column()
+    amount: number;
+
+    @Column()
+    unit: string;
+}
