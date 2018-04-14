@@ -1,5 +1,7 @@
 import * as Router from 'koa-router';
 import { Controller } from './controller';
+import {IngredientsController} from './ingredients';
+import { Connection } from 'typeorm';
 
 
 export class MainController extends Controller {
@@ -8,16 +10,17 @@ export class MainController extends Controller {
     }
 
     setupRoutes(): void {
-        this.router.get('/*', async (ctx) => {
+        this.router.get('/', async (ctx) => {
             ctx.body = {"response": "Hello, World!"};
         });
     }
 }
 
 export class Controllers {
-    static getControllers(router: Router): Controller[] {
+    static getControllers(router: Router, connection: Connection): Controller[] {
         return [
-            new MainController(router)
+            new MainController(router),
+            new IngredientsController(router, connection)
         ];
     }
 }
