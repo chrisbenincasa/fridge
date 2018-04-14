@@ -3,6 +3,8 @@ import { Connection } from 'typeorm';
 
 import { Fridge } from '../db/entity/Fridge';
 import { Controller } from './Controller';
+import FridgeValidation from './FridgeValidation';
+import ValidationMiddleware from '../middleware/ValidationMiddleware';
 
 export class FridgeController extends Controller {
     private dbConnection: Connection;
@@ -18,6 +20,15 @@ export class FridgeController extends Controller {
 
             ctx.body = { data: fridge };
         });
+
+        this.router.post('/fridges', ValidationMiddleware(FridgeValidation.FridgeCreation.body), async (ctx) => {
+            let fridge: Fridge = ctx.request.body;
+
+            let newFridge = await this.dbConnection.manager.save(Fridge, fridge);
+
+            ctx.status = 201;
+            ctx.body = { id: newFridge.id };
+        })
 
         this.router.get('/fridges/:id', async (ctx) => {
             let fridge = await this.dbConnection.getRepository(Fridge).findOneById(ctx.params.id);
