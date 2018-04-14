@@ -1,7 +1,0 @@
-CREATE TABLE `food_items` (
-  `id` BIGINT AUTO_INCREMENT NOT NULL,
-  `name` VARCHAR(255) NOT NULL,
-  `quantity` DECIMAL NOT NULL DEFAULT 0.0,
-  `unit` VARCHAR(255) NOT NULL DEFAULT 'whole',
-  PRIMARY KEY (`id`)
-);
