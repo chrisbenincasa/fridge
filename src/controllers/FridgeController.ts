@@ -35,7 +35,7 @@ export class FridgeController extends Controller {
         })
 
         this.router.put('/fridges/:id/quantities', async (ctx) => {
-            let quantity: Quantity = ctx.request.body;
+            let quantity: Quantity = Object.assign(new Quantity, ctx.request.body);
 
             let ingredientPromise = this.dbConnection.getRepository(Ingredient).findOneById(quantity.ingredient.id);
             let fridgePromise = this.dbConnection.getRepository(Fridge).findOneById(ctx.params.id);

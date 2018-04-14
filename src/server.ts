@@ -6,6 +6,7 @@ import { FridgeController } from './controllers/FridgeController';
 import { IngredientsController } from './controllers/IngredientsController';
 import { Db } from './db/connection';
 import { Middleware } from './middleware/middleware';
+import * as math from 'mathjs';
 
 class Server {
     async main(port: number = 3000): Promise<void> {
@@ -35,5 +36,7 @@ class Server {
         controllers.forEach(controller => controller.setupRoutes());
     }
 }
+
+math.createUnit('pound', { definition: '1 poundmass', aliases: ['pounds'] });
 
 new Server().main();
