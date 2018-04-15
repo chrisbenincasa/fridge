@@ -20,7 +20,7 @@ export class FridgeController extends Controller {
 
     setupRoutes(): void {
         this.router.get('/fridges', async (ctx) => {
-            let fridge = await this.dbConnection.getRepository(Fridge).find();
+            let fridge = await this.dbConnection.getRepository(Fridge).find({ order: { id: "ASC" }});
 
             ctx.body = { data: fridge };
         });
@@ -42,11 +42,10 @@ export class FridgeController extends Controller {
             let [ingredient, fridge] = await Promise.all([ingredientPromise, fridgePromise]);
 
             if (!fridge || !ingredient) {
-                console.log(`Fridge = ${fridge}, ingredient = ${ingredient}`);
+                // Return error body
                 ctx.status = 400;
             } else {
                 let existingQuantity = _.find(fridge.quantities, q => q.ingredient.id === quantity.ingredient.id);
-                console.log(existingQuantity);
                 let newQuantity = (existingQuantity) ? existingQuantity.add(quantity) : quantity;
                 let savedQuantity = await this.dbConnection.getRepository(Quantity).save(newQuantity);
 
@@ -55,6 +54,7 @@ export class FridgeController extends Controller {
                     await this.dbConnection.getRepository(Fridge).save(fridge);
                 }
 
+                ctx.body = { id: ctx.params.id };
                 ctx.status = 200;
             }
         });
