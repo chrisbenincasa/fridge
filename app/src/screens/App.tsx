@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
+import { Navigator } from 'react-native-navigation';
 import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
 
-import Config from './Config';
+import Config from '../Config';
 
 interface Fridge {
   id: number;
   name: string;
 }
 
-interface Props {};
+interface Props {
+  navigator: Navigator
+};
 interface State {
   loading: boolean;
   dataSource: Fridge[]
@@ -46,12 +49,19 @@ export default class App extends Component<Props, State> {
           <FlatList 
             style={styles.welcome}
             data={this.state.dataSource} 
-            renderItem={({item}) => <Text style={styles.instructions}>{item.id}, {item.name}</Text>}
+            renderItem={({item}) => <Text onPress={() => this.onFridgeClicked(item)} style={styles.instructions}>{item.id}, {item.name}</Text>}
             keyExtractor={(item, index) => index.toString()}
           />
         </View>
       );
     }
+  }
+
+  onFridgeClicked(item: Fridge) {
+    this.props.navigator.push({
+      screen: 'Main',
+      title: item.name
+    });
   }
 }
 
@@ -63,7 +73,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   welcome: {
-    marginVertical: 50,
+    marginVertical: 0,
     marginLeft: 10
   },
   instructions: {
