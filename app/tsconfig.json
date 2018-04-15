@@ -6,10 +6,12 @@
       "moduleResolution": "node",
       "noImplicitAny": true,
       "allowSyntheticDefaultImports": true,
-      "esModuleInterop": true
+      "esModuleInterop": true,
+      // "strict": true,
+      "strictPropertyInitialization": false
   },
   "include": [
-    "./src/"
+    "./src/**/*"
   ],
   "exclude": [
       "node_modules"

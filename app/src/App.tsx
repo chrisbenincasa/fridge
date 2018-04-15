@@ -1,59 +1,73 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * 
- * Generated with the TypeScript template
- * https://github.com/emin93/react-native-template-typescript
- */
-
 import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import Config from './Config';
+
+interface Fridge {
+  id: number;
+  name: string;
+}
 
 interface Props {};
-export default class App extends Component<Props> {
+interface State {
+  loading: boolean;
+  dataSource: Fridge[]
+};
+export default class App extends Component<Props, State> {
+  public state: State = { loading: true, dataSource: [] }
+
+  constructor(props: Props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    return fetch(`${Config.server.host}/fridges`).then(async response => {
+      let respJson = await response.json();
+
+      this.setState({ 
+        loading: false,
+        dataSource: respJson.data
+      });
+    }).catch(e => {
+      console.error(e);
+    });
+  }
+
   render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!!!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.tsx
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
-    );
+    if (this.state.loading) {
+      return (
+        <View style={styles.container}>
+          <ActivityIndicator />
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.container}>
+          <FlatList 
+            style={styles.welcome}
+            data={this.state.dataSource} 
+            renderItem={({item}) => <Text style={styles.instructions}>{item.id}, {item.name}</Text>}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        </View>
+      );
+    }
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     backgroundColor: '#F5FCFF',
   },
   welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+    marginVertical: 50,
+    marginLeft: 10
   },
   instructions: {
-    textAlign: 'center',
+    textAlign: 'left',
     color: '#333333',
     marginBottom: 5,
   },
