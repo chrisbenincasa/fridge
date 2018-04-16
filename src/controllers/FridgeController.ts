@@ -63,6 +63,7 @@ export class FridgeController extends Controller {
             let fridge = await this.dbConnection.getRepository(Fridge).findOneById(ctx.params.id);
             
             if (fridge) {
+                ctx.status = 200;
                 ctx.body = { data: fridge };
             } else {
                 ctx.status = 404;
