@@ -1,22 +1,20 @@
 import React, { Component } from 'react';
-import { Navigator } from 'react-native-navigation';
 import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
+import { Navigator } from 'react-native-navigation';
 
 import Config from '../Config';
-
-interface Fridge {
-  id: number;
-  name: string;
-}
+import Fridge from '../model/Fridge';
 
 interface Props {
   navigator: Navigator
 };
+
 interface State {
   loading: boolean;
   dataSource: Fridge[]
 };
-export default class App extends Component<Props, State> {
+
+export default class FridgeList extends Component<Props, State> {
   public state: State = { loading: true, dataSource: [] }
 
   constructor(props: Props) {
@@ -59,7 +57,7 @@ export default class App extends Component<Props, State> {
 
   onFridgeClicked(item: Fridge) {
     this.props.navigator.push({
-      screen: 'Main',
+      screen: 'fridge.FridgeDetail',
       title: item.name
     });
   }
